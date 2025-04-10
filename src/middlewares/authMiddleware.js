@@ -15,6 +15,7 @@ const auth = async (req, res, next) => {
 
     // Attach user info to the request
     req.user = await User.findById(decoded.id).select('-password');
+    // req.user = {id: decoded.id, username: decoded.username}; // if you want to use the decoded token directly
 
     next(); // move to next middleware or roue handler
   } catch (err) {
