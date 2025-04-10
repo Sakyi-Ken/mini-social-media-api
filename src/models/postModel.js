@@ -9,6 +9,9 @@ const postSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    password: {
+      select: false // Exclude password from the user reference
+    }
   },
   likes: [
     {
