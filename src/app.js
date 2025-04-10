@@ -5,11 +5,14 @@ const dotenv = require('dotenv');
 const authRoute = require('./routes/authRoute');
 const mongoose = require('mongoose');
 const postRoute = require('./routes/postRoute');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 dotenv.config()
 
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/', (req, res ) => {
   res.send("Server is healthy!")
