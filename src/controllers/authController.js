@@ -59,9 +59,21 @@ exports.login = async (req, res) => {
     // generate token
     const accessToken = jwt.sign({ id: existingUser._id, username: existingUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     // send response
-    res.status(200).json({ message: "Login successful", success: true, accessToken, user: { id: existingUser._id, username: existingUser.username, email: existingUser.email, password: existingUser.password } });
+    res.status(200).json({ message: "Login successful", success: true, accessToken, user: { id: existingUser._id, username: existingUser.username, email: existingUser.email, password: existingUser.password }});
   } catch (err) {
     console.error("Error in logging in: ", err.message);
+    res.status(500).json({ message: "Internal Server Error", success: false });
+  }
+}
+
+// user logout
+exports.logout = async (req, res) => {
+  try {
+    // clear token from client side
+    res.clearCookie('token');
+    res.status(200).json({ message: "Logout successful", success: true });
+  } catch (err) {
+    console.error("Error in logging out: ", err.message);
     res.status(500).json({ message: "Internal Server Error", success: false });
   }
 }
