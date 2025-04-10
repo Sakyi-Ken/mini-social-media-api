@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/authRoute');
 const mongoose = require('mongoose');
+const postRoute = require('./routes/postRoute');
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ app.get('/', (req, res ) => {
 });
 
 app.use('/api/auth', authRoute);
+app.use('/api/posts/', postRoute);
 
 
 // Connect to MongoDB
